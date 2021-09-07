@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return 'Home';
 });
+
+Route::resource('urls', App\Http\Controllers\UrlController::class);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UrlController extends Controller
@@ -13,7 +14,8 @@ class UrlController extends Controller
      */
     public function index()
     {
-        //
+        $urls = DB::table('urls')->get();
+        return view('url.index', compact('urls'));
     }
 
     /**

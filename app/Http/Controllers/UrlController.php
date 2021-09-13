@@ -15,7 +15,7 @@ class UrlController extends Controller
     public function index()
     {
         $urls = DB::table('urls')->get();
-        return view('url.index', compact('urls'));
+        return view('urls.index', compact('urls'));
     }
 
     /**

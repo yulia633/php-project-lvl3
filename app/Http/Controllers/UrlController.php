@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class UrlController extends Controller
 {
@@ -36,7 +37,33 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'url.name' => 'required|max:255'
+        ]);
+
+        $parsedUrl = parse_url($data['url']['name']);
+        $normalizedUrl = "{$parsedUrl['scheme']}://{$parsedUrl['host']}";
+        $url = DB::table('urls')
+            ->where('name', $normalizedUrl)
+            ->first();
+
+        if (empty($url)) {
+            $newUrl = DB::table('urls')->insertGetId(
+                [
+                    'name' => $normalizedUrl,
+                    'created_at' => Carbon::now()->toString(),
+                    'updated_at' => Carbon::now()->toString()
+                ]
+            );
+
+            return redirect()
+                ->route('urls.show', ['url' => $newUrl])
+                ->with('status', 'Страница успешно добавлена');
+        }
+
+        return redirect()
+            ->route('urls.show', ['url' => $url->id])
+            ->with('status', 'Страница уже существует');
     }
 
     /**
@@ -47,7 +74,10 @@ class UrlController extends Controller
      */
     public function show($id)
     {
-        //
+        $url = DB::table('urls')->find($id);
+
+        abort($url, 404);
+        return view('urls.show', compact('urls'));
     }
 
     /**

@@ -1,6 +1,3 @@
-urls.index view
-
-
 @extends('layouts.app')
 
 @section('content')

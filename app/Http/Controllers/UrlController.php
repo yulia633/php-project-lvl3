@@ -32,6 +32,7 @@ class UrlController extends Controller
         ]);
 
         $parsedUrl = parse_url($data['url']['name']);
+
         $normalizedUrl = "{$parsedUrl['scheme']}://{$parsedUrl['host']}";
         $url = DB::table('urls')
             ->where('name', $normalizedUrl)
@@ -46,14 +47,12 @@ class UrlController extends Controller
                 ]
             );
 
-            return redirect()
-                ->route('urls.show', ['url' => $newUrl])
-                ->with('status', 'Страница успешно добавлена');
+            flash('Страница успешно добавлена')->success();
+            return redirect()->route('urls.show', ['url' => $newUrl]);
         }
 
-        return redirect()
-            ->route('urls.show', ['url' => $url->id])
-            ->with('status', 'Страница уже существует');
+        flash('Страница уже существует')->info();
+        return redirect()->route('urls.show', ['url' => $url->id]);
     }
 
     /**
@@ -65,8 +64,6 @@ class UrlController extends Controller
     public function show($id)
     {
         $url = DB::table('urls')->find($id);
-
-        abort($url, 404);
-        return view('urls.show', compact('urls'));
+        return view('urls.show', compact('url'));
     }
 }

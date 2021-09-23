@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    @if ($flash)
-        <p>{{ $flash }}</p>
-    @endif
-
+@include('flash::message')
 @section('content')
-    <h1>Сайт: {{ $url->name }}</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Имя</th>
-                <th>Дата создания</th>
-                <th>Дата обновления</th>
-            </tr>
-            <tr>
-                <td>{{ $url->id }}</td>
-                <td>{{ $url->name }}</td>
-                <td>{{ $url->created_at }}</td>
-                <td>{{ $url->updated_at }}</td>
-            </tr>
-        </table>
+<div class="container-md mt-5">
+    <h1 class="display-4">Сайт: {{ $url->name }}</h1>
+    <table class="table table-bordered">
+        <tr>
+            <td style="width: 200px">ID</td>
+            <th>{{ $url->id }}</th>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>{{ $url->name }}</td>
+        </tr>
+        <tr>
+            <td>Дата создания</td>
+            <td>{{ $url->created_at }}</td>
+        </tr>
+        <tr>
+            <td>Дата обновления</td>
+            <td>{{ $url->updated_at }}</td>
+        </tr>
+    </table>
+</div>
 @endsection

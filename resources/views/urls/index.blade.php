@@ -1,13 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Сайты</h1>
-    @if ($urls)
-        <table>
+    <div class="container-md mt-5">
+        <h1 class="display-4">Сайты</h1>
+        @isset($urls)
+        <table class="table table-bordered">
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
+                <th>Последняя проверка</th>
+                <th>Код ответа</th>
+            </tr>
+            @foreach($urls as $url)
+                <tr>
+                    <td style="width: 5%">{{$url->id}}</td>
+                    <td>
+                        <a href="{{route('urls.show', $url->id)}}">{{ $url->name }}</a>
+                    </td>
+                    <td>{{ $url->updated_at ?? '' }}</td>
                 </tr>
+            @endforeach
         </table>
-    @endif
+        @endif
+    </div>
 @endsection

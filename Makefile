@@ -21,8 +21,8 @@ log:
 test:
 	php artisan test
 
-lint:
-	composer exec phpcs
+test-coverage:
+	php artisan test --coverage-clover build/logs/clover.xml
 
-lint-fix:
-	composer exec phpcbf
+lint:
+	composer run-script phpcs -- --standard=PSR12 tests app

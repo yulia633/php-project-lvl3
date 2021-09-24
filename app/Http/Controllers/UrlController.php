@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
@@ -27,13 +28,20 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'url.name' => 'required|max:255'
+        $validator = Validator::make($request->all(), [
+            'url.name' => 'required|url|max:255'
         ]);
 
-        $parsedUrl = parse_url($data['url']['name']);
+        if ($validator->fails()) {
+            flash('Некорретный url')->error()->important();
+            return redirect()->route('welcome');
+        }
 
-        $normalizedUrl = "{$parsedUrl['scheme']}://{$parsedUrl['host']}";
+        $data = $request->input('url');
+
+        $parsedUrl = parse_url($data['name']);
+
+        $normalizedUrl = strtolower("{$parsedUrl['scheme']}://{$parsedUrl['host']}");
         $url = DB::table('urls')
             ->where('name', $normalizedUrl)
             ->first();

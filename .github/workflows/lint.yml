@@ -7,35 +7,45 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:12.3
-        env:
-          DB_CONNECTION: pgsql
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test
-        ports:
-        - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup PHP
-        # https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-      - name: Install
-        run: make setup
-      - name: Run linter
-        run: make lint
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: make test
-      - name: Run test and show code coverage
-        uses: paambaati/codeclimate-action@v2.6.0
-        env:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: Install Dependencies
+      run: composer install
+
+    - name: Generate key
+      run: php artisan key:generate
+
+    - name: Generate database file
+      run: touch database/database.sqlite
+
+    - name: Migrate database
+      run: php artisan migrate
+
+    - name: Directory Permissions
+      run: chmod -R 777 storage bootstrap/cache
+
+    - name: Run lint
+      run: make lint
+
+    - name: Run tests
+      run: make test
+    - name: Run test and show code coverage
+
+    uses: paambaati/codeclimate-action@v2.6.0
+    env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
+    with:
           coverageCommand: make test-coverage
           coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
           debug: true

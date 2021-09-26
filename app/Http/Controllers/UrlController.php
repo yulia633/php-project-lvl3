@@ -17,7 +17,19 @@ class UrlController extends Controller
     public function index()
     {
         $urls = DB::table('urls')->get();
-        return view('urls.index', compact('urls'));
+
+        $lastChecksId = DB::table('url_checks')
+            ->select(DB::raw('url_id, MAX(id) as last_check_id'))
+            ->groupBy('url_id')
+            ->pluck('last_check_id')
+            ->all();
+
+        $lastChecks = DB::table('url_checks')
+            ->whereIn('id', $lastChecksId)
+            ->get()
+            ->keyBy('url_id');
+
+        return view('urls.index', compact('urls', 'lastChecks'));
     }
 
     /**
@@ -50,8 +62,8 @@ class UrlController extends Controller
             $newUrl = DB::table('urls')->insertGetId(
                 [
                     'name' => $normalizedUrl,
-                    'created_at' => Carbon::now()->toString(),
-                    'updated_at' => Carbon::now()->toString()
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ]
             );
 
@@ -72,6 +84,12 @@ class UrlController extends Controller
     public function show($id)
     {
         $url = DB::table('urls')->find($id);
-        return view('urls.show', compact('url'));
+
+        $urlChecks = DB::table('url_checks')
+            ->where('url_id', $id)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('urls.show', compact('url', 'urlChecks'));
     }
 }

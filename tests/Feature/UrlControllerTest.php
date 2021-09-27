@@ -30,8 +30,8 @@ class UrlControllerTest extends TestCase
         $normalizedUrl = "{$urlScheme}://{$urlHost}";
         $newUrl = [
             'name' => $normalizedUrl,
-            'created_at' => Carbon::now()->toString(),
-            'updated_at' => Carbon::now()->toString()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ];
 
         $this->id = DB::table('urls')->insertGetId($newUrl);

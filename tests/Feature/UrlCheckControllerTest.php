@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Faker\Factory;
 use Carbon\Carbon;
 
 class UrlCheckControllerTest extends TestCase
@@ -25,10 +24,14 @@ class UrlCheckControllerTest extends TestCase
 
         $id = DB::table('urls')->insertGetId($data);
 
-        Http::fake([$id => Http::response(200)]);
+        $fakeHtml = file_get_contents(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', "fixtures", 'test.html']));
+        Http::fake([$data['name'] => Http::response($fakeHtml, 200)]);
 
         $expectedData = [
             'url_id' => $id,
+            'h1' => 'Saits',
+            'keywords' => 'keywords',
+            'description' => 'description',
             'status_code' => 200
         ];
 

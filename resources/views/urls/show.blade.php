@@ -48,5 +48,10 @@
         @endforeach
     @endif
 </table>
+    <div class="row">
+        <div class="col">
+            {{ $urlChecks->links('pagination::bootstrap-4') }}
+        </div>
+    </div>
 </div>
 @endsection

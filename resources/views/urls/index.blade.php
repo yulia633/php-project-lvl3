@@ -22,6 +22,7 @@
                 </tr>
             @endforeach
         </table>
+        {{ $urls->links('pagination::bootstrap-4') }}
         @endif
     </div>
 @endsection

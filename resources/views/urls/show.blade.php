@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+        </div>
+    @endif
 @include('flash::message')
 <div class="container-md mt-5">
     <h1 class="display-4">Сайт: {{ $url->name }}</h1>

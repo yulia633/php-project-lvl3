@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\UrlController;
 use Tests\TestCase;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +49,15 @@ class UrlControllerTest extends TestCase
         $response->assertOk();
     }
 
+    private function formData($overrides = [])
+    {
+        $faker = Factory::create();
+
+        return array_merge([
+            'name' => $faker->name,
+        ], $overrides);
+    }
+
     /**
      * Test of urls store basic.
      *
@@ -55,15 +65,12 @@ class UrlControllerTest extends TestCase
      */
     public function testEmpryStore()
     {
-        $data = [];
-        $response = $this->post(route('urls.store'), $data);
-        $response->assertSessionHasErrors();
-        $response->assertRedirect();
+        $response = $this->post(route('urls.store'), $this->formData(['name' => '']));
 
-        $this->assertDatabaseHas('urls', $data);
+        $response->assertRedirect();
     }
 
-     /**
+    /**
      * Test of urls store.
      *
      * @return void

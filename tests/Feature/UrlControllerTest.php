@@ -55,11 +55,12 @@ class UrlControllerTest extends TestCase
      */
     public function testStore()
     {
-        $response = $this->post(route('urls.store'));
+        $data = ['url' => ['name' => 'https://google.com']];
+        $response = $this->post(route('urls.store'), $data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('urls', ['id' => $this->id]);
+        $this->assertDatabaseHas('urls', $data['url']);
     }
 
     /**

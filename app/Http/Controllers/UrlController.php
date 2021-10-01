@@ -42,7 +42,9 @@ class UrlController extends Controller
 
         if ($validator->fails()) {
             flash('Некорретный URL')->error()->important();
-            return redirect()->route('welcome');
+            return redirect()->route('welcome')
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $data = $request->input('url');

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('flash::message')
 <div class="jumbotron jumbotron-fluid bg-dark">
     <div class="container-lg">
         <div class="row">

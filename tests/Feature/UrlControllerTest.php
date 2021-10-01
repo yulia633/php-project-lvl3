@@ -49,6 +49,21 @@ class UrlControllerTest extends TestCase
     }
 
     /**
+     * Test of urls store basic.
+     *
+     * @return void
+     */
+    public function testEmpryStore()
+    {
+        $data = [];
+        $response = $this->post(route('urls.store'), $data);
+        $response->assertSessionHasErrors();
+        $response->assertRedirect();
+
+        $this->assertDatabaseHas('urls', $data);
+    }
+
+     /**
      * Test of urls store.
      *
      * @return void

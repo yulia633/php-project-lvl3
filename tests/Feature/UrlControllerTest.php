@@ -66,6 +66,7 @@ class UrlControllerTest extends TestCase
     public function testEmpryStore()
     {
         $response = $this->post(route('urls.store'), $this->formData(['name' => '']));
+        $response->assertSessionHasErrors(['name']);
 
         $response->assertRedirect();
     }

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\UrlController;
 use Tests\TestCase;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
@@ -63,7 +62,7 @@ class UrlControllerTest extends TestCase
      *
      * @return void
      */
-    public function testEmpryStore()
+    public function testEmptyStore()
     {
         $response = $this->post(route('urls.store'), $this->formData(['name' => '']));
         $response->assertSessionHasErrors(['name']);
@@ -78,12 +77,18 @@ class UrlControllerTest extends TestCase
      */
     public function testStore()
     {
-        $data = ['url' => ['name' => 'https://google.com']];
+        $data_fake =  array_merge([
+            'name' => "https://google.com",
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        $data = ['url' => 'https://google.com'];
         $response = $this->post(route('urls.store'), $data);
-        $response->assertSessionHasNoErrors();
+
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('urls', $data['url']);
+        $this->assertDatabaseHas('urls', $data_fake);
     }
 
     /**

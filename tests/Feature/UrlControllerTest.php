@@ -85,7 +85,7 @@ class UrlControllerTest extends TestCase
 
         $data = ['url' => 'https://google.com'];
         $response = $this->post(route('urls.store'), $data);
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['name' => "The name field is required."]);
 
         $response->assertRedirect();
 

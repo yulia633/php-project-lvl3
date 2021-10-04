@@ -36,8 +36,10 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|url|max:255'
+        $data = $request->input('url');
+
+        $validator = Validator::make($data, [
+            'name' => 'required|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -46,8 +48,6 @@ class UrlController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
-        $data = $request->input('url');
 
         $parsedUrl = parse_url($data['name']);
 

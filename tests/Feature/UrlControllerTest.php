@@ -48,15 +48,6 @@ class UrlControllerTest extends TestCase
         $response->assertOk();
     }
 
-    private function formData($overrides = [])
-    {
-        $faker = Factory::create();
-
-        return array_merge([
-            'name' => $faker->name,
-        ], $overrides);
-    }
-
     /**
      * Test of urls store basic.
      *
@@ -64,32 +55,29 @@ class UrlControllerTest extends TestCase
      */
     public function testEmptyStore()
     {
-        $response = $this->post(route('urls.store'), $this->formData(['name' => '']));
+        $data = ['url' => ['name' => '']];
+
+        $response = $this->post(route('urls.store'), $data);
         $response->assertSessionHasErrors(['name']);
 
         $response->assertRedirect();
     }
 
-    /**
+   /**
      * Test of urls store.
      *
      * @return void
      */
     public function testStore()
     {
-        $data_fake =  array_merge([
-            'name' => "https://google.com",
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
 
-        $data = ['url' => 'https://google.com'];
+        $data = ['url' => ['name' => 'https://hexlet.io']];
         $response = $this->post(route('urls.store'), $data);
-        $response->assertSessionHasErrors(['name' => "The name field is required."]);
+        $response->assertSessionHasNoErrors();
 
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('urls', $data_fake);
+        $this->assertDatabaseHas('urls', $data['url']);
     }
 
     /**

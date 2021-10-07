@@ -12,7 +12,7 @@ class UrlController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class UrlController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -52,7 +52,8 @@ class UrlController extends Controller
         $parsedUrl = parse_url($data['name']);
 
         $normalizedUrl = strtolower("{$parsedUrl['scheme']}://{$parsedUrl['host']}");
-        $url = DB::table('urls')
+
+        $url = app('db')->table('urls')
             ->where('name', $normalizedUrl)
             ->first();
 
@@ -77,9 +78,9 @@ class UrlController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function show($id)
+    public function show(int $id)
     {
         $url = DB::table('urls')->find($id);
 

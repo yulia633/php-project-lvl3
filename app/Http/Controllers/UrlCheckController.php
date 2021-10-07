@@ -14,9 +14,9 @@ class UrlCheckController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, int $id)
     {
         $url = DB::table('urls')->find($id);
 

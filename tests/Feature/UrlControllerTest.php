@@ -15,7 +15,7 @@ class UrlControllerTest extends TestCase
      * @return void
      */
 
-    public $id;
+    public int $id;
 
     protected function setUp(): void
     {

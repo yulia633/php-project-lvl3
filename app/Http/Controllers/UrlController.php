@@ -39,7 +39,7 @@ class UrlController extends Controller
         $data = $request->input('url');
 
         $validator = Validator::make($data, [
-            'url.name' => 'required|url|max:255'
+            'name' => 'required|url|max:255'
         ]);
 
         if ($validator->fails()) {

@@ -58,26 +58,24 @@ class UrlControllerTest extends TestCase
         $data = ['url' => ['name' => '']];
 
         $response = $this->post(route('urls.store'), $data);
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['url.name']);
 
         $response->assertRedirect();
     }
 
-   /**
+    /**
      * Test of urls store.
      *
      * @return void
      */
     public function testStore()
     {
+        $data = ['name' => 'https://hexlet.io'];
 
-        $data = ['url' => ['name' => 'https://hexlet.io']];
         $response = $this->post(route('urls.store'), $data);
         $response->assertSessionHasNoErrors();
 
-        $response->assertRedirect();
-
-        $this->assertDatabaseHas('urls', $data['url']);
+        $this->assertDatabaseHas('urls', $data);
     }
 
     /**

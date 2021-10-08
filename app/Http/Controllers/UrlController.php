@@ -57,7 +57,7 @@ class UrlController extends Controller
             ->where('name', $normalizedUrl)
             ->first();
 
-        if (empty($url)) {
+        if (is_null($url)) {
             $newUrl = DB::table('urls')->insertGetId(
                 [
                     'name' => $normalizedUrl,

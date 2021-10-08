@@ -19,7 +19,7 @@ log:
 	tail -f storage/logs/laravel.log
 
 test:
-	php artisan test
+	php artisan test --filter 'Tests\\Feature'
 
 test-coverage:
 	php artisan test --coverage-clover build/logs/clover.xml

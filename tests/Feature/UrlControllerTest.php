@@ -59,7 +59,7 @@ class UrlControllerTest extends TestCase
 
         $response = $this->post(route('urls.store'), $data);
 
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['url.name']);
 
         $response->assertRedirect();
     }
@@ -71,12 +71,12 @@ class UrlControllerTest extends TestCase
      */
     public function testStore()
     {
-        $data = ['name' => 'https://hexlet.io'];
+        $data = ['url' => ['name' => 'https://hexlet.io']];
 
         $response = $this->post(route('urls.store'), $data);
         $response->assertSessionHasNoErrors();
 
-        $this->assertDatabaseHas('urls', $data);
+        $this->assertDatabaseHas('urls', $data['url']);
     }
 
     /**

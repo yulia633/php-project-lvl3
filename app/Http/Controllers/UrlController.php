@@ -36,10 +36,8 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->input('url.name');
-
-        $validator = Validator::make($request->input('url'), [
-            'name' => 'required|url|max:255'
+        $validator = Validator::make($request->all(), [
+            'url.name' => 'required|url|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -49,7 +47,9 @@ class UrlController extends Controller
                 ->withInput();
         }
 
-        $parsedUrl = parse_url($data);
+        $data = $request->input('url');
+
+        $parsedUrl = parse_url($data['name']);
 
         $normalizedUrl = strtolower("{$parsedUrl['scheme']}://{$parsedUrl['host']}");
 

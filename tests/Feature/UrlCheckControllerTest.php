@@ -25,7 +25,12 @@ class UrlCheckControllerTest extends TestCase
         $id = DB::table('urls')->insertGetId($data);
 
         $fakeHtml = file_get_contents(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', "fixtures", 'test.html']));
-        Http::fake([$data['name'] => Http::response($fakeHtml, 200)]);
+
+        if ($fakeHtml === false) {
+            throw new \Exception("Ошибка открытия файла");
+        }
+
+        Http::fake(fn($request) => Http::response($fakeHtml, 200));
 
         $expectedData = [
             'url_id' => $id,

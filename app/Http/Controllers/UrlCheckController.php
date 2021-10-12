@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
+use Illuminate\Http\Client\ConnectionException;
 
 class UrlCheckController extends Controller
 {
@@ -41,11 +42,18 @@ class UrlCheckController extends Controller
             );
 
             flash('Страница успешно проверена')->info();
-            return redirect()->route('urls.show', ['url' => $id]);
-        } catch (\Exception $e) {
+        } catch (ConnectionException $e) {
+            flash('Сайт не доступен')->error();
             return redirect()
-                ->route('urls.show', ['url' => $id])
-                ->withErrors("{$e->getMessage()}");
+                ->route('urls.show', ['url' => $id]);
+        }
+
+        if ($response->clientError()) {
+            flash('Status code 40x: Bad Request')->warning();
+        }
+
+        if ($response->serverError()) {
+            flash('Status code 50x: Internal Server Error')->warning();
         }
     }
 }

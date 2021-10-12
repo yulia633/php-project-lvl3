@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Page analyzer - @yield('title')</title>
+        <title>Page analyzer SEO @yield('title')</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="csrf-param" content="_token" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('welcome') }}">Главная</a>
+                            <a class="nav-link" href="{{ route('welcome') }}">Главная</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="{{ route('urls.index') }}">Сайты</a>
@@ -35,7 +35,7 @@
         <footer class="border-top py-3 mt-5 flex-shrink-0">
             <div class="container-lg">
                 <div class="text-center">
-                    <a href="https://hexlet.io/pages/about" target="_blank">Hexlet</a>
+                    <a href="https://github.com/yulia633" target="_blank">Julia Belashova</a>
                 </div>
             </div>
         </footer>

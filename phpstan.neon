@@ -1,20 +1,19 @@
 parameters:
-  level: 8
+  level: 4
   paths:
-    - code/app
-    - code/routes
-    - code/tests
+    - app
+    - routes
     - tests
 
   checkMissingIterableValueType: false
 
   excludePaths:
-    - code/routes/console.php
-    - code/routes/channels.php
-    - code/app/Http/Middleware/Authenticate.php
-    - code/app/Http/Middleware/RedirectIfAuthenticated.php
-    - code/app/Exceptions/Handler.php
-    - code/app/Providers/RouteServiceProvider.php
+    - routes/console.php
+    - routes/channels.php
+    - app/Http/Middleware/Authenticate.php
+    - app/Http/Middleware/RedirectIfAuthenticated.php
+    - app/Exceptions/Handler.php
+    - app/Providers/RouteServiceProvider.php
 
   reportUnmatchedIgnoredErrors: false
 

@@ -18,6 +18,9 @@ jobs:
       - name: Install
         run: make setup
 
+      - name: Run phpstan
+        run: make analyse
+
       - name: Run linter
         run: make lint
 

@@ -25,7 +25,7 @@ test-coverage:
 	php artisan test --coverage-clover build/logs/clover.xml
 
 lint:
-	composer exec phpcs -- --standard=PSR12 tests app
+	composer exec phpcs
 
 analyse:
 	composer exec phpstan analyse -v -- --memory-limit=-4

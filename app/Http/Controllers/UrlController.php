@@ -37,7 +37,7 @@ class UrlController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'url.name' => 'required|url|max:255'
+            'url.name' => 'required|url|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -62,7 +62,7 @@ class UrlController extends Controller
                 [
                     'name' => $normalizedUrl,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ]
             );
 

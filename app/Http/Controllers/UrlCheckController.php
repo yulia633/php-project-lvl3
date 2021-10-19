@@ -50,7 +50,7 @@ class UrlCheckController extends Controller
                 'keywords' => $keywords,
                 'description' => $description,
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ]
         );
 

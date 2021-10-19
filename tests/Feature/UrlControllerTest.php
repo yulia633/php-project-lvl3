@@ -31,7 +31,7 @@ class UrlControllerTest extends TestCase
         $newUrl = [
             'name' => $normalizedUrl,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ];
 
         $this->id = DB::table('urls')->insertGetId($newUrl);

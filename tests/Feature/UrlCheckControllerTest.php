@@ -19,7 +19,7 @@ class UrlCheckControllerTest extends TestCase
         $data = [
             'name' => 'https://google.com',
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ];
 
         $id = DB::table('urls')->insertGetId($data);
@@ -37,7 +37,7 @@ class UrlCheckControllerTest extends TestCase
             'h1' => 'Saits',
             'keywords' => 'keywords',
             'description' => 'description',
-            'status_code' => 200
+            'status_code' => 200,
         ];
 
         $response = $this->post(route('urls.checks.store', $id));

@@ -20,21 +20,14 @@ class UrlControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $faker = Factory::create();
 
-        $parsedUrl = parse_url($faker->url);
-
-        $urlScheme = strtolower($parsedUrl['scheme']);
-        $urlHost = strtolower($parsedUrl['host']);
-
-        $normalizedUrl = "{$urlScheme}://{$urlHost}";
-        $newUrl = [
-            'name' => $normalizedUrl,
+        $data = [
+            'name' => 'https://google.com',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
 
-        $this->id = DB::table('urls')->insertGetId($newUrl);
+        $this->id = DB::table('urls')->insertGetId($data);
     }
 
     /**

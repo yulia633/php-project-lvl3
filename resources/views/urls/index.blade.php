@@ -3,7 +3,6 @@
 @section('content')
     <div class="container-md mt-5">
         <h1 class="display-4">Сайты</h1>
-        @isset($urls)
         <table class="table table-bordered">
             <tr>
                 <th>ID</th>
@@ -25,6 +24,5 @@
             @endif
         </table>
         {{ $urls->links('pagination::bootstrap-4') }}
-        @endif
     </div>
 @endsection

@@ -11,7 +11,6 @@
     </head>
     <body class="min-vh-100 d-flex flex-column">
         <header class="flex-shrink-0">
-            @include('flash::message')
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{ route('welcome') }}">Анализатор страниц</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

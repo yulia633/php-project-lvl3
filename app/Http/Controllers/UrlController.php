@@ -16,7 +16,7 @@ class UrlController extends Controller
      */
     public function index()
     {
-        $urls = DB::table('urls')->oldest()->paginate(10);
+        $urls = DB::table('urls')->paginate(10);
 
         $lastChecks = DB::table('url_checks')
             ->orderBy('url_id')

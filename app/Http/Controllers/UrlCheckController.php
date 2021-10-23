@@ -28,14 +28,6 @@ class UrlCheckController extends Controller
                 ->route('urls.show', ['url' => $id]);
         }
 
-        if ($response->clientError()) {
-            flash('Status code 40x: Bad Request')->warning();
-        }
-
-        if ($response->serverError()) {
-            flash('Status code 50x: Internal Server Error')->warning();
-        }
-
         $document = new Document($response->body());
         $h1 = optional($document->first('h1'))->text();
         $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');

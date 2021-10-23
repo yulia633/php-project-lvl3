@@ -20,7 +20,7 @@ class UrlController extends Controller
 
         $lastChecks = DB::table('url_checks')
             ->orderBy('url_id')
-            ->latest()
+            ->oldest()
             ->distinct('url_id')
             ->get()
             ->keyBy('url_id');

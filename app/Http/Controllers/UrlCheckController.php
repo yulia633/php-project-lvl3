@@ -30,7 +30,7 @@ class UrlCheckController extends Controller
 
         $document = new Document($response->body());
         $h1 = optional($document->first('h1'))->text();
-        $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');
+        $title = optional($document->first('title'))->text();
         $description = optional($document->first('meta[name=description]'))->getAttribute('content');
 
         DB::table('url_checks')->insert(
@@ -38,7 +38,7 @@ class UrlCheckController extends Controller
                 'url_id' => $id,
                 'status_code' => $response->status(),
                 'h1' => $h1,
-                'keywords' => $keywords,
+                'title' => $title,
                 'description' => $description,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

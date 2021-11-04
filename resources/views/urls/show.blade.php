@@ -31,7 +31,7 @@
         <th>ID</th>
         <th>Код ответа</th>
         <th>h1</th>
-        <th>keywords</th>
+        <th>title</th>
         <th>description</th>
         <th>Дата создания</th>
     </tr>
@@ -41,7 +41,7 @@
                 <td>{{ $urlCheck->id }}</td>
                 <td>{{ $urlCheck->status_code }}</td>
                 <td>{{ Str::limit($urlCheck->h1, 30) }}</td>
-                <td>{{ Str::limit($urlCheck->keywords, 30) }}</td>
+                <td>{{ Str::limit($urlCheck->title, 30) }}</td>
                 <td>{{ Str::limit($urlCheck->description, 30) }}</td>
                 <td>{{ $urlCheck->created_at }}</td>
             </tr>

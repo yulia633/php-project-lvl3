@@ -34,10 +34,10 @@ class UrlCheckControllerTest extends TestCase
 
         $expectedData = [
             'url_id' => $id,
-            'h1' => 'Saits',
-            'keywords' => 'keywords',
-            'description' => 'description',
             'status_code' => 200,
+            'h1' => 'Saits',
+            'title' => 'Page analyzer',
+            'description' => 'description',
         ];
 
         $response = $this->post(route('urls.checks.store', $id));

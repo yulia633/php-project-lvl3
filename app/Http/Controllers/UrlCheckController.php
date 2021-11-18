@@ -23,7 +23,7 @@ class UrlCheckController extends Controller
         try {
             $response = Http::timeout(3)->get($url->name);
         } catch (ConnectionException $e) {
-            flash('Сайт не доступен')->error();
+            flash('Сайт недоступен')->error();
             return redirect()
                 ->route('urls.show', ['url' => $id]);
         }

@@ -34,6 +34,7 @@
         <th>title</th>
         <th>description</th>
         <th>Дата создания</th>
+        <th>Статус проверки</th>
     </tr>
     @if ($urlChecks)
         @foreach ($urlChecks as $urlCheck)
@@ -44,6 +45,7 @@
                 <td>{{ Str::limit($urlCheck->title, 30) }}</td>
                 <td>{{ Str::limit($urlCheck->description, 30) }}</td>
                 <td>{{ $urlCheck->created_at }}</td>
+                <td>{{ $urlCheck->status }}</td>
             </tr>
         @endforeach
     @endif
